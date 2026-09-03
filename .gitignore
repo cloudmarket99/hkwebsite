@@ -1,0 +1,5 @@
+# Ignore node_modules & OS metadata
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
