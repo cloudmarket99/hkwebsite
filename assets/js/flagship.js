@@ -138,8 +138,16 @@
       </a>`).join('');
   };
 
+  const toggleBackgroundAria = (open) => {
+    ['#main', 'header', 'footer', '.utility-bar', '.mobile-nav', '.mobile-quick', '.skip-link', '.back-to-top', '.chapter-rail'].forEach((sel) => {
+      const el = $(sel);
+      if (el) open ? el.setAttribute('aria-hidden', 'true') : el.removeAttribute('aria-hidden');
+    });
+  };
+
   const setPalette = async (open) => {
     if (!palette) return;
+    toggleBackgroundAria(open);
     if (open) {
       paletteReturn = document.activeElement;
       document.body.classList.add('has-modal');
@@ -284,7 +292,7 @@
   };
   addEventListener('scroll', updateReading, { passive: true });
   addEventListener('resize', updateReading);
-  updateReading();
+  if (articleBody) requestAnimationFrame(updateReading);
 
   // Clipboard checklist helper.
   $$('[data-copy-checklist]').forEach((button) => {
@@ -311,16 +319,21 @@
   const backToTop = $('[data-back-to-top]');
   const updateBackToTop = () => backToTop?.classList.toggle('is-visible', scrollY > 800);
   addEventListener('scroll', updateBackToTop, { passive: true });
-  updateBackToTop();
+  if (backToTop) requestAnimationFrame(updateBackToTop);
   backToTop?.addEventListener('click', () => scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
   // Spotlight coordinate for premium cards.
   if (finePointer) {
-    $$('[data-spotlight]').forEach((node) => node.addEventListener('pointermove', (event) => {
-      const rect = node.getBoundingClientRect();
-      node.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
-      node.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
-    }));
+    $$('[data-spotlight]').forEach((node) => {
+      let rect = null;
+      node.addEventListener('pointerenter', () => { rect = node.getBoundingClientRect(); });
+      node.addEventListener('pointermove', (event) => {
+        if (!rect) rect = node.getBoundingClientRect();
+        node.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
+        node.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+      });
+      node.addEventListener('pointerleave', () => { rect = null; });
+    });
   }
 
   // Blueprint-style hero canvas. It is decorative and disabled for reduced motion.
@@ -393,19 +406,25 @@
       });
       frame = requestAnimationFrame(draw);
     };
-    canvas.closest('[data-hero]')?.addEventListener('pointermove', (event) => {
-      const rect = canvas.getBoundingClientRect();
-      pointerX = (event.clientX - rect.left) / Math.max(1, rect.width);
-      pointerY = (event.clientY - rect.top) / Math.max(1, rect.height);
+    const heroEl = canvas.closest('[data-hero]');
+    let heroRect = null;
+    heroEl?.addEventListener('pointerenter', () => { heroRect = canvas.getBoundingClientRect(); });
+    heroEl?.addEventListener('pointermove', (event) => {
+      if (!heroRect) heroRect = canvas.getBoundingClientRect();
+      pointerX = (event.clientX - heroRect.left) / Math.max(1, heroRect.width);
+      pointerY = (event.clientY - heroRect.top) / Math.max(1, heroRect.height);
     });
+    heroEl?.addEventListener('pointerleave', () => { heroRect = null; });
     document.addEventListener('visibilitychange', () => {
       running = !document.hidden;
       if (running) frame = requestAnimationFrame(draw);
       else cancelAnimationFrame(frame);
     });
     addEventListener('resize', resize);
-    resize();
-    frame = requestAnimationFrame(draw);
+    requestAnimationFrame(() => {
+      resize();
+      frame = requestAnimationFrame(draw);
+    });
   }
 
   // Blog Pagination Controller
