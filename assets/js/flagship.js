@@ -147,6 +147,7 @@
   const setPalette = async (open) => {
     if (!palette) return;
     toggleBackgroundAria(open);
+    if (palettePanel) open ? palettePanel.setAttribute('aria-modal', 'true') : palettePanel.removeAttribute('aria-modal');
     if (open) {
       paletteReturn = document.activeElement;
       document.body.classList.add('has-modal');
