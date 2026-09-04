@@ -11,7 +11,7 @@
   const onScroll=()=>{if(!ticking){ticking=true;requestAnimationFrame(updateScroll);}}; requestAnimationFrame(updateScroll); addEventListener('scroll',onScroll,{passive:true});
 
   const reveals=$$('.reveal');
-  if(reduce||!('IntersectionObserver'in window))reveals.forEach(n=>n.classList.add('is-visible'));else{const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');o.unobserve(e.target);}}),{threshold:.01,rootMargin:'50px'});reveals.forEach((n,i)=>{n.style.transitionDelay=`${Math.min((i%5)*45,180)}ms`;io.observe(n);});}
+  if(reduce||!('IntersectionObserver'in window))reveals.forEach(n=>n.classList.add('is-visible'));else{const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');o.unobserve(e.target);}}),{threshold:.01,rootMargin:'60px'});reveals.forEach(n=>{const r=n.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)n.classList.add('is-visible');else{n.classList.add('will-animate');io.observe(n);}});}
 
   const navToggle=$('[data-nav-toggle]'), mobileNav=$('[data-mobile-nav]'), navClose=$('[data-nav-close]');let navReturn=null;
   const setNav=open=>{if(!mobileNav||!navToggle)return;mobileNav.classList.toggle('is-open',open);mobileNav.setAttribute('aria-hidden',String(!open));navToggle.setAttribute('aria-expanded',String(open));navToggle.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');body.classList.toggle('nav-open',open);if(open){navReturn=document.activeElement;setTimeout(()=>navClose?.focus(),reduce?0:180);}else if(navReturn instanceof HTMLElement)navReturn.focus({preventScroll:true});};
