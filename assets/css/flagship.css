@@ -20,7 +20,7 @@
 .reveal{opacity:1;transform:none}
 .js .reveal{opacity:0;transform:translateY(25px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
 .js .reveal.is-visible{opacity:1!important;transform:none!important}
-.home-hero .reveal,.flag-page-hero .reveal,.page-hero .reveal,.profile-hero .reveal,.office-hero .reveal,.case-detail-hero .reveal,.article-hero .reveal,.home-hero__copy .reveal,.home-hero__visual .reveal{opacity:1!important;transform:none!important;transition:none!important}
+.home-hero h1,.home-hero h1 *,.flag-page-hero h1,.flag-page-hero h1 *,.page-hero h1,.page-hero h1 *,.js .home-hero h1,.js .home-hero h1 *,.js .flag-page-hero h1,.js .flag-page-hero h1 *,.js .page-hero h1,.js .page-hero h1 *,.home-hero .reveal,.flag-page-hero .reveal,.page-hero .reveal,.profile-hero .reveal,.office-hero .reveal,.case-detail-hero .reveal,.article-hero .reveal,.home-hero__copy .reveal,.home-hero__visual .reveal{opacity:1!important;transform:none!important;visibility:visible!important;transition:none!important}
 
 html{scrollbar-gutter:stable}
 body{overflow-x:clip}
