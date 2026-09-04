@@ -96,8 +96,8 @@ body.has-modal{overflow:hidden}
 .credential{backdrop-filter:blur(18px);background:rgba(255,255,255,.9)}
 .hero-trust-strip{position:relative;z-index:4;color:#fff;background:#01111f;border-top:1px solid rgba(255,255,255,.1)}
 .hero-trust-strip__inner{display:grid;grid-template-columns:1.05fr repeat(4,1fr);align-items:stretch;margin:0;padding:0;list-style:none}
-.hero-trust-strip__title,.hero-trust-strip__item{padding:24px 28px;border-right:1px solid rgba(255,255,255,.1)}
-.hero-trust-strip__title{padding-left:0}
+.hero-trust-strip__title,.hero-trust-strip__item{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px 20px;border-right:1px solid rgba(255,255,255,.1)}
+.hero-trust-strip__title{padding-left:20px}
 .hero-trust-strip__title p{margin:0;color:#91b7ca;font-size:9px;font-weight:900;letter-spacing:.2em}
 .hero-trust-strip__title strong{display:block;margin-top:5px;font-size:15px}
 .hero-trust-strip__item span{display:block;color:#7192a6;font-size:9px;font-weight:900;letter-spacing:.12em}
