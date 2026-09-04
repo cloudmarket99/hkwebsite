@@ -139,8 +139,7 @@
   };
 
   const toggleBackgroundAria = (open) => {
-    ['#main', 'header', 'footer', '.utility-bar', '.mobile-nav', '.mobile-quick', '.skip-link', '.back-to-top', '.chapter-rail'].forEach((sel) => {
-      const el = $(sel);
+    $$('.site-header, #main, .site-footer, .utility-bar, .mobile-nav, .mobile-quick, .skip-link, .back-to-top, .chapter-rail, header, footer').forEach((el) => {
       if (el) open ? el.setAttribute('aria-hidden', 'true') : el.removeAttribute('aria-hidden');
     });
   };
