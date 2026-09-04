@@ -3,8 +3,13 @@ Allow: /
 
 Sitemap: https://www.hokyunglaw.co.kr/sitemap.xml
 
+# LLM Directives
+# llms.txt: https://www.hokyunglaw.co.kr/llms.txt
+# llms-full.txt: https://www.hokyunglaw.co.kr/llms-full.txt
+
 User-agent: GPTBot
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
+
