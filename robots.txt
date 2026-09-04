@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.hokyunglaw.com/sitemap.xml
+Sitemap: https://www.hokyunglaw.co.kr/sitemap.xml
 
 User-agent: GPTBot
 Allow: /
